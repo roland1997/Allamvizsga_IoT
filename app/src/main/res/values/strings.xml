@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">IoT Vilagitasrendszer</string>
+    <string name="Intensity">Intensity</string>
+    <string name="Lux">Lux</string>
 </resources>
