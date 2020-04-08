@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "703518204010",
+    "firebase_url": "https://iot-vilagitasrendszer.firebaseio.com",
+    "project_id": "iot-vilagitasrendszer",
+    "storage_bucket": "iot-vilagitasrendszer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703518204010:android:95cf909064de6804592a13",
+        "android_client_info": {
+          "package_name": "com.example.iotvilagitasrendszer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703518204010-f6apnh414s7l756luv0kjhhs9eg1fauu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iotvilagitasrendszer",
+            "certificate_hash": "4f0d13ab6bf4fa4c40bf1ac9a49daeef312a9b4a"
+          }
+        },
+        {
+          "client_id": "703518204010-5n5283advha4iceptabn1hequf5fopkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWf1VgwqYCusk9lpEPNVPxju03RcOTzQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703518204010-5n5283advha4iceptabn1hequf5fopkr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
