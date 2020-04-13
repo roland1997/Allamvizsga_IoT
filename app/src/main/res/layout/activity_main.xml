@@ -43,4 +43,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
+    <View
+        android:id="@+id/colorView"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/view_border"
+        app:layout_constraintStart_toEndOf="@+id/RGB_color"
+        app:layout_constraintTop_toBottomOf="@+id/reference" />
+
+    <ImageView
+        android:id="@+id/RGB_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="RGB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reference"
+        app:srcCompat="@drawable/rgb_color" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
