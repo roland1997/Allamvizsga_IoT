@@ -2,4 +2,25 @@
     <string name="app_name">IoT Vilagitasrendszer</string>
     <string name="Intensity">Intensity</string>
     <string name="Lux">Lux</string>
+    <string name="RGB">RGB</string>
+    <string name="choose_ledstrip">Choose Led Strip</string>
+    <string name="ok_label">OK</string>
+    <string name="clear_all_label">Clear all</string>
+    <string name="dismiss_label">Dis miss</string>
+    <string name="strip1">Strip1</string>
+    <string name="strip2">Strip2</string>
+    <string name="strip3">Strip3</string>
+    <string name="strip4">Strip4</string>
+    <string name="strip5">Strip5</string>
+    <string name="change_name">Change Names</string>
+
+
+    <string-array name="strip_names">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
 </resources>
