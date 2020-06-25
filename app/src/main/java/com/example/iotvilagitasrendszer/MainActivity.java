@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
+    Integer r,g,b;
     String [] listItems={"1","2","3","4","5"};
     boolean [] checkedItems;
     ArrayList<Integer> mUserSelected = new ArrayList<>();
@@ -53,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
         initialization();
         getLux();
         seekbar();
+
         rgbPicker();
         getNames();
+        chooseLedStrip();
 
        btn.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -66,6 +69,25 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    private void initialization (){
+
+        Lux =(TextView) findViewById(R.id.lux);
+        text1 =(TextView) findViewById(R.id.textView);
+        Reference = (SeekBar) findViewById(R.id.reference);
+        RGBColor = (ImageView) findViewById(R.id.RGB_color);
+        mColorView = (View) findViewById(R.id.colorView);
+        btnCLS = (Button) findViewById(R.id.btnChLS);
+        btn = (Button) findViewById(R.id.button2);
+
+
+
+
+    }
+
+    private void chooseLedStrip(){
         checkedItems = new boolean[listItems.length];
         btnCLS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                             text1.setText(item);
+
                         }
 
                     });
@@ -133,21 +156,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initialization (){
-
-        Lux =(TextView) findViewById(R.id.lux);
-        text1 =(TextView) findViewById(R.id.textView);
-        Reference = (SeekBar) findViewById(R.id.reference);
-        RGBColor = (ImageView) findViewById(R.id.RGB_color);
-        mColorView = (View) findViewById(R.id.colorView);
-        btnCLS = (Button) findViewById(R.id.btnChLS);
-        btn = (Button) findViewById(R.id.button2);
-
-
-
-
-    }
-
     private void getNames(){
 
         myRef = FirebaseDatabase.getInstance().getReference("RGB");
@@ -156,8 +164,11 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int j=0;
                 for(DataSnapshot i: dataSnapshot.getChildren()){
-                    listItems[j] = i.getKey();
-                    j++;
+                    for(DataSnapshot k : i.getChildren()){
+                        listItems[j] = k.getKey();
+                        j++;
+                    }
+
                 }
 
             }
@@ -235,9 +246,9 @@ public class MainActivity extends AppCompatActivity {
                     int pixel = bitmap.getPixel((int)event.getX(), (int)event.getY());
 
                     //getting RGB values'
-                    int r = Color.red(pixel);
-                    int g = Color.green(pixel);
-                    int b = Color.blue(pixel);
+                     r = Color.red(pixel);
+                     g = Color.green(pixel);
+                     b = Color.blue(pixel);
 
                     // set background color of view according to the picked color
                     // mColorView.setBackgroundColor(Color.rgb(r,g,b));
@@ -245,6 +256,39 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 return true;
+            }
+        });
+    }
+
+    private void setRGB (String selected){
+
+
+        myRef = FirebaseDatabase.getInstance().getReference("RGB");
+        myRef.addValueEventListener(new ValueEventListener() {
+
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot i: dataSnapshot.getChildren()){
+                    for(DataSnapshot j : i.getChildren()){
+
+                        for(DataSnapshot k : j.getChildren()){
+                            if(k.getKey().equals("B")){
+                                myRef.child("RGB").child(i.getKey()).child(j.getKey()).child(k.getKey()).setValue(b);
+                                myRef.child("RGB").child(i.getKey()).child(j.getKey()).child(k.getKey()).setValue(r);
+                                myRef.child("RGB").child(i.getKey()).child(j.getKey()).child(k.getKey()).setValue(g);
+
+                            }
+                        }
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
             }
         });
     }

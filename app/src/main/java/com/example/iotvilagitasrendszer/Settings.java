@@ -54,23 +54,23 @@ public class Settings extends AppCompatActivity {
 
 
 
-                setDatabaseStripNames(s1);
-                setDatabaseStripNames(s2);
-               setDatabaseStripNames(s3);
-               setDatabaseStripNames(s4);
-                setDatabaseStripNames(s5);
+                setDatabaseStripNames("1",s1);
+                setDatabaseStripNames("2",s2);
+               setDatabaseStripNames("3",s3);
+               setDatabaseStripNames("4",s4);
+                setDatabaseStripNames("5",s5);
 
                 startActivity(intent);
             }
         });
     }
-    private void setDatabaseStripNames(String name){
+    private void setDatabaseStripNames(String  nr, String name){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
-        myRef.child("RGB").child(name).child("R").setValue(0);
-        myRef.child("RGB").child(name).child("G").setValue(0);
-        myRef.child("RGB").child(name).child("B").setValue(0);
+        myRef.child("RGB").child(nr).child(name).child("R").setValue(0);
+        myRef.child("RGB").child(nr).child(name).child("G").setValue(0);
+        myRef.child("RGB").child(nr).child(name).child("B").setValue(0);
     }
 
     private void initialization(){
