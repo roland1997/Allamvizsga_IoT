@@ -32,14 +32,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView Lux,text1;
     private SeekBar Reference;
     private ImageView RGBColor;
-    private Button btnCLS, btn;
+    private Button btnCLS, btn, btnrgb;
+
     View mColorView;
     Bitmap bitmap;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
-    Integer r,g,b;
+
     String [] listItems={"1","2","3","4","5"};
+    ArrayList<String> selectedS;
+    ArrayList<Integer> rgb;
     boolean [] checkedItems;
     ArrayList<Integer> mUserSelected = new ArrayList<>();
     Intent intent;
@@ -58,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
         rgbPicker();
         getNames();
         chooseLedStrip();
+
+        btnrgb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setRGB(selectedS);
+
+            }
+        });
 
        btn.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -81,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         mColorView = (View) findViewById(R.id.colorView);
         btnCLS = (Button) findViewById(R.id.btnChLS);
         btn = (Button) findViewById(R.id.button2);
+        btnrgb = (Button) findViewById(R.id.button3);
 
 
 
@@ -115,13 +127,16 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String item = "";
+                            selectedS = new ArrayList<>();
                             for (int i = 0; i < mUserSelected.size(); i++) {
                                 item = item + listItems[mUserSelected.get(i)];
+                                selectedS.add(listItems[mUserSelected.get(i)]);
                                 if (i != mUserSelected.size() - 1) {
                                     item = item + ", ";
                                 }
                             }
-                            text1.setText(item);
+                            String szin=rgb.get(2).toString()+ rgb.get(1).toString()+ rgb.get(0).toString();
+                            text1.setText(szin);
 
                         }
 
@@ -246,13 +261,21 @@ public class MainActivity extends AppCompatActivity {
                     int pixel = bitmap.getPixel((int)event.getX(), (int)event.getY());
 
                     //getting RGB values'
-                     r = Color.red(pixel);
-                     g = Color.green(pixel);
-                     b = Color.blue(pixel);
+                    rgb = new ArrayList<>();
+                    rgb.add(0,Color.red(pixel));
+                    rgb.add(1,Color.green(pixel));
+                    rgb.add(2,Color.blue(pixel));
+                   //  r = Color.red(pixel);
+                    // g = Color.green(pixel);
+                   //  b = Color.blue(pixel);
+Log.d("keksz", String.valueOf(rgb.get(0)));
+Log.d("keksz", String.valueOf(rgb.get(1)));
+Log.d("keksz", String.valueOf(rgb.get(2)));
+
 
                     // set background color of view according to the picked color
                     // mColorView.setBackgroundColor(Color.rgb(r,g,b));
-                    mColorView.setBackgroundColor(Color.rgb(r,g,b));
+                    mColorView.setBackgroundColor(Color.rgb(rgb.get(0),rgb.get(1),rgb.get(2)));
 
                 }
                 return true;
@@ -260,24 +283,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setRGB (String selected){
+    private void setRGB (final ArrayList selected){
+
 
 
         myRef = FirebaseDatabase.getInstance().getReference("RGB");
         myRef.addValueEventListener(new ValueEventListener() {
 
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                int n=2;
                 for(DataSnapshot i: dataSnapshot.getChildren()){
                     for(DataSnapshot j : i.getChildren()){
 
                         for(DataSnapshot k : j.getChildren()){
-                            if(k.getKey().equals("B")){
-                                myRef.child("RGB").child(i.getKey()).child(j.getKey()).child(k.getKey()).setValue(b);
-                                myRef.child("RGB").child(i.getKey()).child(j.getKey()).child(k.getKey()).setValue(r);
-                                myRef.child("RGB").child(i.getKey()).child(j.getKey()).child(k.getKey()).setValue(g);
+                            if(j.getKey().equals(selected.get(0))){
+
+                                    myRef.child(i.getKey()).child(j.getKey()).child(k.getKey()).setValue(rgb.get(n));
+                                    n--;
+
+
 
                             }
+
                         }
                     }
 
